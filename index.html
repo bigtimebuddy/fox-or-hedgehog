@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fox or Hedgehog</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
@@ -12,6 +13,12 @@
             padding-top:0.3em;
             font-size:180%;
             font-weight:bold;
+        }
+        .result-position {
+            border-width:4px !important;
+        }
+        .result-label {
+            width: 120px;
         }
     </style>
   </head>
@@ -261,8 +268,18 @@
         <div id="actions" class="text-center pb-5">
             <button id="submitButton" class="btn btn-lg btn-primary">Fox or Hedgehog?</button>
         </div>
-        <div id="result" class="jumbotron d-none text-center">
-            <h1 class="display-4">You are <strong class="text-primary" id="result-text"></strong></h1>
+        <div id="result" class="d-none jumbotron text-center">
+            <h1 class="display-4">You are <strong class="text-primary" id="result-text">100% Fox</strong>.</h1>
+            <p class="lead">You scored <strong id="score">-54</strong> on a scale from -54 to 54.</p>
+            <div class="d-flex mt-5">
+                <div class="result-label p-2 bg-dark rounded-left"><span class="text-white">Hedgehog</span></div>
+                <div class="flex-grow-1">
+                    <div class="progress bg-light rounded-0 position-relative" style="height:40px">
+                        <div id="result-position" class="result-position position-absolute border border-primary h-100" style="top:0;left:50%;"></div>
+                    </div>
+                </div>
+                <div class="result-label p-2 bg-dark rounded-right"><span class="text-white">Fox</span></div>
+            </div>
         </div>
         <script>
             const $ = document.querySelector.bind(document);
@@ -270,6 +287,8 @@
             const $result = $('#result');
             const $resultText = $('#result-text');
             const $actions = $('#actions');
+            const $position = $('#result-position');
+            const $score = $('#score');
 
             $submit.addEventListener('click', function() {
                 const $radios = document.querySelectorAll('input[type=radio]');
@@ -287,9 +306,13 @@
                 }
                 else {
                     const percent = Math.round((Math.abs(score) / 54) * 100);
+                    const position = (score + 54) / (52 * 2);
                     $resultText.innerHTML = `${percent}% ${score < 0 ? 'Hedgehog' : 'Fox'}`;
                     $result.classList.remove('d-none');
                     $actions.classList.add('d-none');
+                    $position.style.left = `calc(${position * 100}% - 4px)`;
+                    $score.innerHTML = String(score);
+                    window.scrollTo(0, document.body.scrollHeight);
                 }
             });
         </script>
