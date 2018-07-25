@@ -20,6 +20,17 @@
         .result-label {
             width: 120px;
         }
+        .result-center {
+            left:50%;
+            z-index:1;
+        }
+        .result-position {
+            top:0;
+            z-index:2;
+        }
+        .progress {
+            height:40px;
+        }
     </style>
   </head>
   <body>
@@ -274,8 +285,9 @@
             <div class="d-flex mt-5">
                 <div class="result-label p-2 bg-dark rounded-left"><span class="text-white">Hedgehog</span></div>
                 <div class="flex-grow-1">
-                    <div class="progress bg-light rounded-0 position-relative" style="height:40px">
-                        <div id="result-position" class="result-position position-absolute border border-primary h-100" style="top:0;left:50%;"></div>
+                    <div class="progress bg-light rounded-0 position-relative">
+                        <div id="result-position" class="result-position position-absolute border border-primary h-100"></div>
+                        <div class="result-center position-absolute border border-muted h-100"></div>
                     </div>
                 </div>
                 <div class="result-label p-2 bg-dark rounded-right"><span class="text-white">Fox</span></div>
